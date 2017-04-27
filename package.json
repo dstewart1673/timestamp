@@ -1,0 +1,11 @@
+{
+  "name": "timestamp",
+  "version": "1.0.0",
+  "description": "A simple timestamp API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Daniel Stewart",
+  "license": "ISC"
+}
