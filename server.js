@@ -1,23 +1,26 @@
-const url = require('url');
-const http = require('http');
-const portIs = process.env.port || 8080;
+const express = require('express');
+const port = process.env.PORT || 8080;
+const app = express();
 
-const server = http.createServer((req, res) => {
-  const call = url.parse(req.url, true);
-  const path = decodeURI(call.pathname.slice(1));
+app.get('/', (req, res) => {
+  
+})
+app.get('/:time', (req, res) => {
+  const timestamp = new Date(parseInt(req.params.time));
   const data = {};
-  const str = Date.parse(path);
+  console.log(timestamp);
 
-  if (isNaN(str)) {
+  if (isNaN(timestamp.getTime())) {
     data.unix = null;
     data.natural = null;
   } else {
-    const nat = new Date(str);
-    data.unix = str;
-    data.natural = nat.toDateString();
+    data.unix = timestamp.getTime();
+    data.natural = timestamp.toDateString();
   };
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify(data));
-});
 
-server.listen(portIs);
+  res.json(data);
+})
+
+app.listen(port, () => {
+  console.log("server listening on " + port);
+})
